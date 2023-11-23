@@ -1,0 +1,19 @@
+.toggle-delete-modal {
+    position: absolute;
+    top: 3%;
+    right: 10%;
+}
+
+.confirm-del-btn:hover {
+    cursor: pointer;
+}
+
+.confirm-del-btn {
+    font-family: 'Poppins', sans-serif;
+    border: 0;
+    padding: 0.3rem 0.5rem;
+    background-color: rgb(168, 70, 35);
+    color: #fff;
+    border-radius: 0.3rem;
+    font-size: 0.8rem;
+}

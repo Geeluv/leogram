@@ -1,0 +1,38 @@
+.feedpage {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr !important;
+    top: 8.5rem;
+}
+
+.fullview {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    top: 8.5rem;
+
+}
+
+.feed-sidebar {
+    position: relative;
+    height: 100vh;
+}
+
+.feed {
+    width: 100%;
+    background-color: rgb(32, 32, 32);
+    padding: 2rem 4rem;
+    border-radius: 0.5rem;
+}
+
+.postfeed-btn {
+    height: 2.8rem;
+    font-size: inherit;
+    border: 0;
+    background-color: rgb(168, 61, 22);
+    border-radius: 0.3rem;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.87);
+    cursor: pointer;
+    font-family: inherit;
+}

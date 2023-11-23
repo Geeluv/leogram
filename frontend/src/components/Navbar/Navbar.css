@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 2rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    background-color: #242424;
+}
+
+.nav-list {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    /* color: rgb(219, 94, 48); */
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo h1 {
+    font-family: 'Satisfy', cursive;
+}
+
+.menu-btn {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .nav-list {
+        display: none;
+    }
+
+    .dropdown {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        background-color: rgb(36, 36, 36);
+        padding: 1rem;
+        padding-top: 6rem;
+        height: 100%;
+        animation: slideIn 0.3s;
+    }
+
+    .nav-link {
+        padding: 1rem;
+        width: 80%;
+        text-align: center;
+    }
+
+    .nav-link:hover {
+        background-color: rgb(30, 30, 30);
+    }
+
+    .menu-btn {
+        position: absolute;
+        display: block;
+        background-color: transparent;
+        cursor: pointer;
+        border: 0;
+        font-size: 2rem;
+        color: inherit;
+        right: 4rem;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateX(50%);
+    }
+
+    1000% {
+        transform: translateX(0%);
+    }
+}

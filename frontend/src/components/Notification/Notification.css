@@ -1,0 +1,48 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.notification {
+    color: rgb(255, 146, 106);
+    background-color: #222222;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    z-index: 101;
+    padding: 0.6rem 1.2rem;
+    padding-right: 0.35rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.9rem;
+    justify-content: center;
+    font-weight: 200;
+    letter-spacing: 1px;
+    border-radius: 0.2rem;
+    position: fixed;
+    border: 0.5px solid rgb(68, 68, 68);
+}
+
+.close-notif {
+    border: 0;
+    background-color: #fff;
+    padding: 0 0.3rem;
+    height: fit-content;
+    color: rgb(168, 61, 22);
+    font-weight: bolder;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.close-notif:hover {
+    background-color: rgb(168, 61, 22);
+    color: #fff;
+    transition: 0.2s ease-in;
+}
+
+.hide-notif {
+    display: none;
+}
