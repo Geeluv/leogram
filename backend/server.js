@@ -9,6 +9,7 @@ const userRoutes = require("./routes/userRoutes");
 const postRoutes = require("./routes/postRoutes");
 const getUserRoute = require("./routes/getUserRoute");
 const commentRoutes = require("./routes/commentRoutes");
+const profileRoutes = require("./routes/profileRoutes");
 const verifyJWT = require("./middleware/verifyJWT");
 
 const app = express();
@@ -27,7 +28,8 @@ app.use("/leogram/users/", userRoutes);
 app.use(verifyJWT);
 app.use("/leogram/users/", getUserRoute);
 app.use("/leogram/users/", postRoutes);
-app.use("/leogram/users/post", commentRoutes);
+app.use("/leogram/users/", profileRoutes);
+app.use("/leogram/users/post/", commentRoutes);
 
 app.all("*", (req, res, next) => {
     const err = new CustomError(`Couldn't find ${req.originalUrl} in the server`, 404);

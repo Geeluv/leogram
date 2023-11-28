@@ -5,6 +5,7 @@ import Layout from './components/Layout';
 import Feed from './pages/Feed/Feed';
 import Profile from './pages/Profile/Profile';
 import { UserContextProvider } from './utils/UserContext';
+import EditProfile from './pages/Profile/EditProfile';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Layout />}>
               <Route path="/feed" element={<Feed />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/edit-profile" element={<EditProfile />} />
             </Route>
           </Routes>
         </UserContextProvider>

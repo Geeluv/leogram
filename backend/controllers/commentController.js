@@ -28,7 +28,7 @@ exports.deleteComment = (asyncErrorHandler(async (req, res, next) => {
 
 exports.fetchAllComments = (asyncErrorHandler(async (req, res, next) => {
     const { id } = req.params;
-    const docs = await Comment.find({ parent_id: id }).populate("author", ["username"]);
+    const docs = await Comment.find({ parent_id: id }).populate("author", ["username", "image"]);
     res.status(200).json(docs);
 }))
 

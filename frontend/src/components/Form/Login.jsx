@@ -17,7 +17,7 @@ const Login = () => {
 
     async function loginUser(e) {
         e.preventDefault();
-        await fetch("http://localhost:3000/leogram/users/signin", {
+        const response = await fetch("http://localhost:3000/leogram/users/signin", {
             method: "POST",
             body: JSON.stringify({ ...userData }),
             headers: {
@@ -25,15 +25,23 @@ const Login = () => {
             },
             credentials: "include"
         });
+        const data = await response.json()
+        user.setCurrentNotification(data.message);
+        user.setNotifClass("notification");
+
         const authUser = await fetch("http://localhost:3000/leogram/users/user", {
             credentials: "include"
         });
+
         const loggedInUser = await authUser.json();
-        localStorage.setItem("leogram-user-profile", JSON.stringify(loggedInUser.username));
-        user.setUser(loggedInUser);
-        navigate("/feed");
-        user.setCurrentNotification(`Login successful. Welcome ${loggedInUser.username}`);
-        user.setNotifClass("notification");
+        if (loggedInUser.username) {
+            localStorage.setItem("leogram-user-profile", JSON.stringify(loggedInUser.username));
+            user.setUser(loggedInUser);
+            navigate("/feed");
+            user.setCurrentNotification(`Login successful. Welcome ${loggedInUser.username}`);
+            user.setNotifClass("notification");
+        }
+
     }
 
     return (

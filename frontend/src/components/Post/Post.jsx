@@ -10,6 +10,7 @@ import convertTime from "../../utils/timeConvert";
 import verifyFileType from "../../utils/verifyFileType";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import { UserContext } from "../../utils/UserContext";
+import { setImageLink } from "../../utils/imageHandler";
 
 const Post = ({ post, setReload }) => {
     const { setCurrentNotification, setNotifClass } = useContext(UserContext);
@@ -21,6 +22,10 @@ const Post = ({ post, setReload }) => {
     const [commentAction, setCommentAction] = useState(false);
     const [isLiked, setIsliked] = useState(() => post?.likes.includes(post?.author?.username));
     const [likesCount, setLikesCount] = useState(() => post?.likes.length)
+
+    const photoStyle = {
+        backgroundImage: `url(http://localhost:3000/uploads/${setImageLink(post?.author?.image)})`
+    }
 
     async function deletePost() {
         const response = await fetch("http://localhost:3000/leogram/users/post/delete", {
@@ -98,9 +103,10 @@ const Post = ({ post, setReload }) => {
                     <div>
                         <div
                             className='post-profile-img'>
-                            <img src={TestImage}
-                                alt='profile-photo'
-                            />
+                            <div
+                                className="post-profile-photo"
+                                style={photoStyle}>
+                            </div>
                         </div>
                         <div
                             className='post-user-details'>

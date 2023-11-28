@@ -24,10 +24,18 @@ const UserSchema = new mongoose.Schema({
         required: [true, "Password is required"],
         select: false
     },
-    profileimage: {
-        type: String
-    }
-
+    banner_image: String,
+    country: String,
+    state: String,
+    leo_level: {
+        type: String,
+        enum: ["Spartan", "Rookie", "Avengers"],
+        default: "Rookie"
+    },
+    friends: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    }]
 }, { timestamps: true });
 
 module.exports = mongoose.model("User", UserSchema);

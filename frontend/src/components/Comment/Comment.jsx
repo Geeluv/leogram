@@ -5,10 +5,15 @@ import { BiHeart, BiReply, BiTrash } from 'react-icons/bi'
 import ReactTimeAgo from 'react-time-ago'
 import convertTime from '../../utils/timeConvert'
 import { UserContext } from '../../utils/UserContext'
+import { setImageLink } from '../../utils/imageHandler'
 
 const Comment = ({ comment, setCommentAction }) => {
     const { setCurrentNotification, setNotifClass } = useContext(UserContext);
     const user = useContext(UserContext);
+
+    const photoStyle = {
+        backgroundImage: `url(http://localhost:3000/uploads/${setImageLink(comment?.author?.image)})`
+    }
 
     async function deleteComment() {
         const response = await fetch("http://localhost:3000/leogram/users/post/comment/delete", {
@@ -30,8 +35,8 @@ const Comment = ({ comment, setCommentAction }) => {
         <>
             <div className='comment'>
                 <div className='comment-list'>
-                    <div className='comment-author-img'>
-                        <img src={ProfilePic} alt='author-photo' />
+                    <div className='comment-author-img' style={photoStyle}>
+                        <div></div>
                     </div>
                     <div className='comment-user-wrapper'>
                         <span className='comment-author'>

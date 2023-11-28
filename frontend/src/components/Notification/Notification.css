@@ -5,8 +5,8 @@
 }
 
 .notification {
-    color: rgb(255, 146, 106);
-    background-color: #222222;
+    color: #fff;
+    background-color: rgb(168, 61, 22);
     position: absolute;
     top: 15%;
     left: 50%;
@@ -18,7 +18,7 @@
     align-items: center;
     font-size: 0.9rem;
     justify-content: center;
-    font-weight: 200;
+    font-weight: 300;
     letter-spacing: 1px;
     border-radius: 0.2rem;
     position: fixed;
@@ -38,7 +38,7 @@
 }
 
 .close-notif:hover {
-    background-color: rgb(168, 61, 22);
+    background-color: rgb(133, 44, 11);
     color: #fff;
     transition: 0.2s ease-in;
 }

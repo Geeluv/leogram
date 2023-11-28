@@ -10,7 +10,16 @@ const salt = bcrypt.genSaltSync(10);
 exports.registerUser = asyncErrorHandler(async (req, res, next) => {
     const { username, email, password } = req.body;
     const hash = bcrypt.hashSync(password, salt);
-    const newUser = await User.create({ username, email, password: hash });
+    const newUser = await User.create({
+        username,
+        email,
+        password: hash,
+        image: "",
+        banner_image: "",
+        country: "",
+        state: "",
+        leo_level: "Rookie"
+    });
     res.status(200).json({ username: newUser.username });
 })
 
@@ -23,8 +32,8 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
     }
     const isMatch = bcrypt.compareSync(password, isUser.password);
     if (isMatch) {
-        const token = jwt.sign({ username: isUser.username, id: isUser._id }, process.env.JWT_SECRET, { expiresIn: "60m" });
-        res.cookie("token", token, { httpOnly: true, secure: true, maxAge: 30 * 60 * 1000 }).status(200).json({
+        const token = jwt.sign({ username: isUser.username, id: isUser._id }, process.env.JWT_SECRET, { expiresIn: "1d" });
+        res.cookie("token", token, { httpOnly: true, secure: true, maxAge: 1440 * 60 * 1000 }).status(200).json({
             username: isUser.username,
             message: "You are now logged in.",
             token

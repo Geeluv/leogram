@@ -6,6 +6,7 @@ export const UserContext = createContext(null);
 export const UserContextProvider = ({ children }) => {
     const navigate = useNavigate();
     const [currentNotification, setCurrentNotification] = useState("");
+    const [reMount, setReMount] = useState("");
     const [notifClass, setNotifClass] = useState("hide-notif");
     const [user, setUser] = useState(() => {
         const userProfile = localStorage.getItem("leogram-user-profile");
@@ -21,7 +22,7 @@ export const UserContextProvider = ({ children }) => {
                 credentials: "include"
             });
             const userData = await response.json();
-            if (response.ok) {
+            if (userData) {
                 localStorage.setItem("leogram-user-profile", JSON.stringify(userData) || "");
                 setUser(userData);
                 return;
@@ -33,14 +34,15 @@ export const UserContextProvider = ({ children }) => {
             navigate("/");
         }
         getUserProfile();
-    }, [user?.username]);
+    }, [user?.username, reMount]);
 
     return <UserContext.Provider value={{
         user,
         setUser,
         currentNotification,
         setCurrentNotification,
-        notifClass, setNotifClass
+        notifClass, setNotifClass,
+        reMount, setReMount
     }}>
         {children}
     </UserContext.Provider>
