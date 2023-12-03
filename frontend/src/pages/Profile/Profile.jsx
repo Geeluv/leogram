@@ -1,54 +1,85 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./Profile.css"
 import { BiDiamond, BiEdit, BiLogoFacebook, BiLogoGmail, BiLogoGoogle, BiLogoTwitter, BiLogoZoom } from "react-icons/bi"
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { setImageLink } from '../../utils/imageHandler'
+import { UserContext } from '../../utils/UserContext'
 
 const Profile = () => {
+    const { id } = useParams()
+    const user = useContext(UserContext);
     const [userData, setUserData] = useState(null);
     const [bannerLink, setBannerLink] = useState("");
+    const [followText, setFollowText] = useState("Follow");
     const [profileImageLink, setProfileImageLink] = useState("");
+
     async function fetchProfile() {
-        const response = await fetch("http://localhost:3000/leogram/users/profile", {
+        const response = await fetch(`http://localhost:3000/leogram/users/profile/${id}`, {
             credentials: "include"
         })
         const data = await response.json();
         setUserData(data);
-        setBannerLink(setImageLink(data?.banner_image))
-        setProfileImageLink(setImageLink(data?.image))
+        setBannerLink(setImageLink(data?.banner_image));
+        setProfileImageLink(setImageLink(data?.image));
+        (data.followers).includes(user?.user?._id) ? setFollowText("Following") : setFollowText("Follow")
+    }
+
+    async function followUser() {
+        const response = await fetch("http://localhost:3000/leogram/users/follow-user", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ userId: id, username: userData.username }),
+            credentials: "include"
+        })
+        const data = await response.json();
+        data.message === "Follow" ? setFollowText("Following") : setFollowText("Follow")
     }
 
     const bannerStyle = {
         backgroundImage: `url(http://localhost:3000/uploads/${bannerLink})`
     }
+
     const imageStyle = {
         backgroundImage: `url(http://localhost:3000/uploads/${profileImageLink})`
     }
+
     useEffect(() => {
         fetchProfile();
     }, [])
+
     return (
         <>
             <div className='profile'>
                 <div className='main-profile-container'>
                     <div className='profile-image-wrapper'>
-                        <div className='profile-banner-container' style={bannerStyle}>
-                        </div>
+                        <div className='profile-banner-container' style={bannerStyle}></div>
                         <div className='profile-image-container'>
                             <div className='profile-image' style={imageStyle}></div>
                         </div>
                         <div className='profile-details'>
-                            <div></div>
                             <div className='pd-wrapper'>
                                 <div className='pd-container'>
                                     <div className='pd-demographics'>
-                                        <span>{userData?.username}</span>
-                                        <span>Leo level:<b style={{ color: "rgb(221, 74, 21)" }}>{userData?.leo_level} <BiDiamond /></b></span>
-                                        <span>Maiduguri, Borno</span>
+                                        <div>
+                                            <span>
+                                                @{userData?.username}
+                                            </span>
+                                            <span>Leo level : <b style={{ color: "rgb(221, 74, 21)" }}>
+                                                {userData?.leo_level}
+                                                <BiDiamond />
+                                            </b>
+                                            </span>
+                                            <span>Maiduguri, Borno</span>
+                                        </div>
+                                        <div className='pd-bio'><i>{userData?.bio}</i></div>
                                     </div>
-                                    <NavLink to="/edit-profile" className='profile-edit'>
+                                    {user?.user?._id === id && <NavLink to={"/edit/" + user?.user?._id} className='profile-edit'>
                                         <BiEdit className='pd-edit-icon' /> Edit profile
-                                    </NavLink>
+                                    </NavLink>}
+                                    {user?.user?._id !== id && <span onClick={followUser} className='follow-user'>
+                                        {followText}
+                                    </span>}
+                                    <div className='pd-followers'><span><b>{userData?.followers.length}</b> Followers</span> <span><b>{userData?.following.length}</b> Following</span></div>
                                 </div>
                                 <div className='profile-user-icons'>
                                     <BiLogoFacebook />
@@ -60,11 +91,12 @@ const Profile = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='profile-body'></div>
+                    {/* <div className='profile-body'>
+                    </div> */}
                 </div>
-                <div className='right-profile-bar'>
+                {/* <div className='right-profile-bar'>
 
-                </div>
+                </div> */}
             </div>
         </>
     )

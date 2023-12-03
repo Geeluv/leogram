@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const { registerUser, loginUser, logoutUser } = require("../controllers/userController/authController")
+const { getUser } = require("../controllers/userController/authUser")
+const { fetchAllUsers, followUser } = require("../controllers/userController/userController");
 
-
-router.post("/signup", registerUser);
-router.post("/signin", loginUser);
-router.get("/logout", logoutUser);
+router.get("/user", getUser);
+router.get("/find-friends", fetchAllUsers);
+router.post("/follow-user", followUser);
 
 module.exports = router;

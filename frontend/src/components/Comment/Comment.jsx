@@ -1,11 +1,10 @@
-import React, { useContext, useState } from 'react'
-import "./Comment.css"
-import ProfilePic from "../../assets/images/leogram-test-image.jpg"
-import { BiHeart, BiReply, BiTrash } from 'react-icons/bi'
-import ReactTimeAgo from 'react-time-ago'
-import convertTime from '../../utils/timeConvert'
-import { UserContext } from '../../utils/UserContext'
-import { setImageLink } from '../../utils/imageHandler'
+import React, { useContext } from 'react';
+import "./Comment.css";
+import { BiTrash } from 'react-icons/bi';
+import ReactTimeAgo from 'react-time-ago';
+import convertTime from '../../utils/timeConvert';
+import { UserContext } from '../../utils/UserContext';
+import { setImageLink } from '../../utils/imageHandler';
 
 const Comment = ({ comment, setCommentAction }) => {
     const { setCurrentNotification, setNotifClass } = useContext(UserContext);
@@ -19,7 +18,10 @@ const Comment = ({ comment, setCommentAction }) => {
         const response = await fetch("http://localhost:3000/leogram/users/post/comment/delete", {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ commentId: comment?._id, parentId: comment?.parent_id }),
+            body: JSON.stringify({
+                commentId: comment?._id,
+                parentId: comment?.parent_id
+            }),
             credentials: "include"
         })
         const data = await response.json();

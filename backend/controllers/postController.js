@@ -2,6 +2,7 @@ const asyncErrorHandler = require("../utils/asyncErrorHandler");
 const CustomError = require("../utils/CustomError");
 const Post = require("../model/PostSchema");
 const fs = require("fs");
+const User = require("../model/UserSchema");
 
 exports.createPost = asyncErrorHandler(async (req, res, next) => {
     const { content } = req.body;
@@ -49,7 +50,9 @@ exports.likePost = asyncErrorHandler(async (req, res, next) => {
 })
 
 exports.fetchAllPosts = asyncErrorHandler(async (req, res, next) => {
-    const allPosts = await Post.find()
+    const users = await User.find({ followers: req.decoded._id })
+    users.push(req.decoded._id)
+    const allPosts = await Post.find({ author: { $in: users } })
         .populate("author", ["username", "_id", "image"])
         .sort({ createdAt: -1 });
     res.status(200).json(allPosts);

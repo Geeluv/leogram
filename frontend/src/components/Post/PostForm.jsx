@@ -28,7 +28,7 @@ const PostForm = ({ uploadPost, postContent, setPostContent, setPostImage, postI
                         onChange={e => setPostContent(e.target.value)}
                         className='feed-post-form-input'
                         type='text'
-                        placeholder={`Hey, ${user?.user?.username}! What do you want to post on Leogram today...?`}
+                        placeholder={`Hey, ${user?.user?.username}! Post on Leogram today...?`}
                         spellCheck={false}
                         maxLength={2500}
                         required>

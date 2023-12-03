@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 
 .nav-wrapper {
-    height: 7.7rem;
+    height: 6rem;
     margin-bottom: 0.5rem;
 }
 
@@ -13,10 +13,9 @@
     position: fixed;
     width: 100%;
     top: 0;
-    z-index: 100;
+    z-index: 3;
     background-color: #242424;
 }
-
 
 .nav-list {
     display: flex;
@@ -26,8 +25,9 @@
 .nav-user {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    /* color: rgb(219, 94, 48); */
+    justify-content: center;
+    gap: 0.3rem;
+    color: rgb(219, 94, 48);
 }
 
 .nav-logo {
@@ -56,10 +56,10 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        background-color: rgb(36, 36, 36);
+        background-color: rgb(36, 36, 36) !important;
         padding: 1rem;
         padding-top: 6rem;
-        height: 100%;
+        height: 100vh;
         animation: slideIn 0.3s;
     }
 
@@ -69,8 +69,12 @@
         text-align: center;
     }
 
+    .nav-user:hover {
+        color: #242424;
+    }
+
     .nav-link:hover {
-        background-color: rgb(30, 30, 30);
+        background-color: rgb(219, 94, 48);
     }
 
     .menu-btn {
@@ -81,7 +85,7 @@
         border: 0;
         font-size: 2rem;
         color: inherit;
-        right: 4rem;
+        right: 2rem;
     }
 }
 

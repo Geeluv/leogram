@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const CustomError = require("../utils/CustomError");
 const User = require("../model/UserSchema");
-const asyncErrorHandler = require("../utils/asyncErrorHandler");
 
 const verifyJWT = (req, res, next) => {
     const { token } = req.cookies;
@@ -19,7 +18,7 @@ const verifyJWT = (req, res, next) => {
             const errorToken = new CustomError("You are not authorized", 403);
             return next(errorToken);
         }
-        const isUser = await User.findOne({ _id: decoded?.id });
+        const isUser = await User.findOne({ _id: decoded?.id }).select({ username: 1, following: 1 });
         if (!isUser) {
             const userError = new CustomError("The user with the given token does not exist", 401);
             return next(userError);

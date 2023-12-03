@@ -44,6 +44,8 @@ module.exports = (error, req, res, next) => {
     res.status(error.statusCode).json({
         status: error.statusCode,
         message: error.message,
+        stackTrace: error.stack,
+        error: error
     })
 
     // if (process.env.NODE_ENV === "development") {

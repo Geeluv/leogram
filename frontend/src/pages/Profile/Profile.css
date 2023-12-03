@@ -1,6 +1,6 @@
 .profile {
     display: grid;
-    grid-template-columns: 2.5fr 1fr;
+    /* grid-template-columns: 2.5fr 1fr; */
     gap: 1rem;
     padding: 0 1rem;
     box-sizing: border-box;
@@ -36,8 +36,8 @@
 
 .profile-image-container {
     padding: 0.5rem;
-    top: 32%;
-    left: 8%;
+    top: 33%;
+    left: 10%;
     border-radius: 50%;
     position: absolute;
     background-color: #242424;
@@ -48,14 +48,14 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    width: 280px;
-    height: 280px;
+    width: 250px;
+    height: 250px;
 }
 
 
 .profile-details {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    /* display: grid;
+    grid-template-columns: 1fr 1.5fr; */
     background-color: #242424;
     height: 100%;
 }
@@ -68,30 +68,57 @@
     padding: 1rem;
     height: 100%;
     padding-top: 1.5rem;
+    width: 60%;
+    margin-left: auto;
 }
 
 .pd-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
+    grid-template-rows: 0.7fr;
 }
 
 .pd-demographics {
     display: flex;
     flex-direction: column;
+    gap: 2rem;
+}
+
+.pd-followers {
+    display: flex;
     gap: 1rem;
+    color: #838383;
+}
+
+.pd-demographics div:nth-child(1) {
+    display: flex;
+    gap: 1rem;
+    height: min-content;
+}
+
+.pd-demographics div:nth-child(1) span:nth-child(1) {
+    color: #838383;
+
+}
+
+.pd-bio {
+    font-size: 0.9rem;
+    color: #838383;
+
 }
 
 .pd-demographics span:nth-child(1) {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 
 .pd-demographics span:nth-child(2) {
     font-size: 0.8rem;
-    display: flex;
-    align-items: center;
     gap: 0.5rem;
-    font-style: italic;
+    border: 1px solid #383838;
+    border-radius: 0.5rem;
+    background-color: rgb(29, 29, 29);
+    padding: 0.5rem;
 }
 
 .pd-demographics span:nth-child(3) {
@@ -121,6 +148,16 @@
     gap: 2rem;
 }
 
+.follow-user {
+    padding: 0.5rem 1rem;
+    background-color: rgb(146, 47, 11);
+    border-radius: 0.2rem;
+    height: min-content;
+    width: max-content;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
 .pd-edit-icon {
     color: rgb(221, 74, 21);
 }
@@ -143,7 +180,8 @@
     border: 1px solid #474747;
 }
 
-.ep-input:nth-child(1) {
+.ep-input1,
+.ep-input2 {
     font-family: inherit;
     padding: 0.6rem;
     border: none;

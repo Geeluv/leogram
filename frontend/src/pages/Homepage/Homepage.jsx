@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import "./Homepage.css"
 import Image from "../../assets/images/leo-chat.png"
 import Register from '../../components/Form/Register'
 import Login from '../../components/Form/Login'
 import { useNavigate } from 'react-router-dom'
 import Notification from "../../components/Notification/Notification"
+import { UserContext } from '../../utils/UserContext'
 
 const Homepage = () => {
+    const navigate = useNavigate();
+    const user = useContext(UserContext)
     const [toggleText, setToggleText] = useState("Already have an account? Sign In!");
     const [toggleForm, setToggleForm] = useState("register");
-    const [isUser, setIsUser] = useState(() => {
-        return localStorage.getItem("leogram-user-profile");
-    });
-    const navigate = useNavigate()
 
     function toggle() {
         if (toggleForm === "login") {
@@ -26,10 +25,11 @@ const Homepage = () => {
     }
 
     useEffect(() => {
-        if (isUser) {
+        if (user?.user?.username) {
             navigate("/feed");
         }
     }, [])
+
     return (
         <>
             <div className='homepage'>

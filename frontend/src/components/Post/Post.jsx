@@ -11,8 +11,10 @@ import verifyFileType from "../../utils/verifyFileType";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import { UserContext } from "../../utils/UserContext";
 import { setImageLink } from "../../utils/imageHandler";
+import { useNavigate } from "react-router-dom";
 
-const Post = ({ post, setReload }) => {
+const Post = ({ post, setReload, setImagePath, setImageModal }) => {
+    const navigate = useNavigate()
     const { setCurrentNotification, setNotifClass } = useContext(UserContext);
     const user = useContext(UserContext);
     const [commentClass, setCommentClass] = useState("hide-comment");
@@ -20,8 +22,15 @@ const Post = ({ post, setReload }) => {
     const commentRef = useRef()
     const [comments, setComments] = useState(null);
     const [commentAction, setCommentAction] = useState(false);
-    const [isLiked, setIsliked] = useState(() => post?.likes.includes(post?.author?.username));
     const [likesCount, setLikesCount] = useState(() => post?.likes.length)
+    const [isLiked, setIsliked] = useState(() => {
+        return (post?.likes).includes((user?.user.username).toLowerCase())
+    });
+
+    function viewImage(imgPath) {
+        setImageModal(true)
+        setImagePath(imgPath)
+    }
 
     const photoStyle = {
         backgroundImage: `url(http://localhost:3000/uploads/${setImageLink(post?.author?.image)})`
@@ -85,7 +94,6 @@ const Post = ({ post, setReload }) => {
     function toggleComment() {
         commentClass ? setCommentClass("") : setCommentClass("hide-comment");
     }
-
     useEffect(() => {
         fetch(`http://localhost:3000/leogram/users/post/${post?._id}/comments`, {
             credentials: "include"
@@ -93,17 +101,17 @@ const Post = ({ post, setReload }) => {
             setComments(data);
             setCommentAction(false)
         });
-    }, [commentAction])
-
+    }, [])
     return (
         <>
+
             <div className='post'>
                 {toggleDeleteModal && <DeleteModal deletePost={deletePost} />}
                 <div className='post-user-profile'>
                     <div>
                         <div
                             className='post-profile-img'>
-                            <div
+                            <div onClick={() => navigate("/profile/" + post?.author._id)}
                                 className="post-profile-photo"
                                 style={photoStyle}>
                             </div>
@@ -135,6 +143,7 @@ const Post = ({ post, setReload }) => {
                         <img
                             src={`http://localhost:3000/${post?.image}`}
                             alt='post-image'
+                            onClick={() => viewImage(post?.image)}
                         />
                     </div>}
                 {post?.image &&
@@ -166,7 +175,7 @@ const Post = ({ post, setReload }) => {
                     <div className="comment">
                         <form onSubmit={uploadComment} className='comment-form'>
                             <textarea ref={commentRef}
-                                placeholder={`Comment on ${post?.author.username}'s post...`}
+                                placeholder={`Reply ${post?.author.username}'s post...`}
                                 className='comment-field'
                                 spellCheck={false}
                                 required

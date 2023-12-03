@@ -1,38 +1,48 @@
 import React, { useContext, useState } from 'react';
 import "./Profile.css";
 import { BiImage, BiPhotoAlbum } from "react-icons/bi";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { UserContext } from '../../utils/UserContext';
 import { setImageName } from '../../utils/imageHandler';
 
 const EditProfile = () => {
-    const { setReMount } = useContext(UserContext)
+    const { setCurrentNotification, setNotifClass, setReMount } = useContext(UserContext);
     const navigate = useNavigate()
+    const { id } = useParams();
     const formData = new FormData();
     const [username, setUsername] = useState("");
+    const [bio, setBio] = useState("");
     const [profileImage, setProfileImage] = useState([]);
     const [bannerImage, setBannerImage] = useState([]);
 
     async function saveProfile(e) {
         e.preventDefault();
         formData.set("username", username);
+        formData.set("bio", bio);
         formData.append("profile_photo", profileImage[0]);
         formData.append("profile_banner", bannerImage[0]);
 
-        const response = await fetch("http://localhost:3000/leogram/users/edit-profile", {
+        const response = await fetch("http://localhost:3000/leogram/users/edit/" + id, {
             method: "POST",
             body: formData,
             credentials: "include"
         });
-
+        const data = await response.json()
         if (response.ok) {
-            navigate("/profile")
+            navigate("/profile/" + id)
             setReMount("edited");
+            setNotifClass("notification");
+            setCurrentNotification("Profile saved!")
+        } else {
+            setNotifClass("notification");
+            setCurrentNotification(data.message)
         }
         formData.set("username", "");
+        formData.set("bio", "");
         formData.set("profile_photo", []);
         formData.set("profile_banner", []);
     }
+
     return (
         <div className='edit-profile ep'>
             <form onSubmit={saveProfile}
@@ -40,10 +50,17 @@ const EditProfile = () => {
             >
                 <input value={username}
                     onChange={(e) => setUsername(e.target.value)}
-                    className='ep-input'
+                    className='ep-input1'
                     type='text'
                     name='username'
                     placeholder='Username'
+                />
+                <input value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    className='ep-input2'
+                    type='text'
+                    name='bio'
+                    placeholder='Bio'
                 />
                 <div>
                     <label

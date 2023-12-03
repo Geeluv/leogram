@@ -32,10 +32,18 @@ const UserSchema = new mongoose.Schema({
         enum: ["Spartan", "Rookie", "Avengers"],
         default: "Rookie"
     },
-    friends: [{
+    followers: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-    }]
+    }],
+    following: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    }],
+    bio: {
+        type: String,
+        default: "Leogram is a place to be"
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model("User", UserSchema);

@@ -10,9 +10,10 @@
 .sidebar-list {
     display: flex;
     align-items: center;
-    gap: 2rem;
+    gap: 1.5rem;
     padding: 0.5rem 2rem;
     cursor: pointer;
+    font-size: 0.95rem;
 }
 
 .sidebar-list:nth-child(1) {
@@ -21,4 +22,35 @@
 
 .active-sidebar {
     background-color: rgb(168, 61, 22);
+}
+
+@media (max-width: 1000px) {
+    .sidebar {
+        width: fit-content;
+    }
+
+
+
+    /* .sidebar-list sb-icon {
+        margin-left: auto;
+    } */
+}
+
+@media (max-width: 742px) {
+    .sb-name {
+        display: none;
+    }
+
+    .sidebar-list {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .sb-icon {
+        margin-left: auto;
+    }
+
+    .sidebar-list {
+        font-size: 1.2rem;
+    }
 }

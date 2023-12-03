@@ -14,8 +14,8 @@ exports.registerUser = asyncErrorHandler(async (req, res, next) => {
         username,
         email,
         password: hash,
-        image: "",
-        banner_image: "",
+        image: "uploads\\1de97a6d2fe163821313195eafb3984c.jpg",
+        banner_image: "uploads\\user-banner.jpg",
         country: "",
         state: "",
         leo_level: "Rookie"

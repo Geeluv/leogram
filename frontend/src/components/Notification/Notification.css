@@ -23,6 +23,7 @@
     border-radius: 0.2rem;
     position: fixed;
     border: 0.5px solid rgb(68, 68, 68);
+    max-width: 50ch;
 }
 
 .close-notif {

@@ -28,6 +28,10 @@
     height: fit-content;
 }
 
+.comment-field::placeholder {
+    font-size: 0.78rem;
+}
+
 .post-comment-btn {
     border: 0;
     padding: 0.4rem 0.7rem;

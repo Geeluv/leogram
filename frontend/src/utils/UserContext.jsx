@@ -22,7 +22,7 @@ export const UserContextProvider = ({ children }) => {
                 credentials: "include"
             });
             const userData = await response.json();
-            if (userData) {
+            if (userData.username) {
                 localStorage.setItem("leogram-user-profile", JSON.stringify(userData) || "");
                 setUser(userData);
                 return;

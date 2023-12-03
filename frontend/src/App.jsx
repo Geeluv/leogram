@@ -16,8 +16,8 @@ function App() {
             <Route path="/" element={<Homepage />} />
             <Route path="/" element={<Layout />}>
               <Route path="/feed" element={<Feed />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/edit-profile" element={<EditProfile />} />
+              <Route path="/profile/:id" element={<Profile />} />
+              <Route path="/edit/:id" element={<EditProfile />} />
             </Route>
           </Routes>
         </UserContextProvider>
