@@ -2,6 +2,7 @@ const asyncErrorHandler = require("../utils/asyncErrorHandler");
 const CustomError = require("../utils/CustomError");
 const Post = require("../model/PostSchema");
 const fs = require("fs");
+const path = require("path");
 const User = require("../model/UserSchema");
 
 exports.createPost = asyncErrorHandler(async (req, res, next) => {
@@ -26,7 +27,30 @@ exports.createPost = asyncErrorHandler(async (req, res, next) => {
 
 exports.deletePost = asyncErrorHandler(async (req, res, next) => {
     const { postId } = req.body;
-    const post = await Post.findOneAndDelete({ _id: postId, author: req.decoded._id }, { new: true, runValidators: true })
+    const docs = await Post.findOne(
+        { _id: postId, author: req.decoded._id }
+    );
+
+    if (docs.image) {
+        const splitPath = (docs.image).split("uploads\\");
+        console.log(splitPath)
+        const directory = fs.readdirSync(path.join(__dirname, "..", "uploads"))
+        directory.forEach(file => {
+            if (file === splitPath[1]) {
+                fs.unlink(path.join(__dirname, "..", "uploads", splitPath[1]), (err => {
+                    if (err) next(err);
+                    res.status(200).json({ message: "Image deleted" });
+                }
+                ))
+            }
+        })
+    }
+
+    const post = await Post.findOneAndDelete(
+        { _id: postId, author: req.decoded._id },
+        { new: true, runValidators: true }
+    )
+
     if (!post) {
         const deleteErr = new CustomError("You are not authorized to delete this post", 401);
         next(deleteErr)
@@ -40,10 +64,16 @@ exports.likePost = asyncErrorHandler(async (req, res, next) => {
     const username = req.decoded.username.toLowerCase();
     const isLiked = await Post.findOne({ _id: postId, likes: username });
     if (isLiked) {
-        const post = await Post.findOneAndUpdate({ _id: postId }, { $pull: { likes: username } }, { new: true, runValidators: true });
+        const post = await Post.findOneAndUpdate(
+            { _id: postId },
+            { $pull: { likes: username } },
+            { new: true, runValidators: true });
         res.status(200).json({ message: false, post: post })
     } else {
-        const post = await Post.findOneAndUpdate({ _id: postId }, { $push: { likes: username } }, { new: true, runValidators: true });
+        const post = await Post.findOneAndUpdate(
+            { _id: postId },
+            { $push: { likes: username } },
+            { new: true, runValidators: true });
         res.status(200).json({ message: true, post: post })
     }
 

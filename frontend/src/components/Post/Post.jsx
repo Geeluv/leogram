@@ -101,7 +101,7 @@ const Post = ({ post, setReload, setImagePath, setImageModal }) => {
             setComments(data);
             setCommentAction(false)
         });
-    }, [])
+    }, [commentAction])
     return (
         <>
 
