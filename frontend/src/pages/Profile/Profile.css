@@ -1,9 +1,8 @@
 .profile {
-    display: grid;
-    /* grid-template-columns: 2.5fr 1fr; */
-    gap: 1rem;
+
     padding: 0 1rem;
     box-sizing: border-box;
+    position: relative;
 }
 
 .right-profile-bar {
@@ -90,6 +89,11 @@
     color: #838383;
 }
 
+.pd-followers span {
+    display: flex;
+    gap: 0.2rem;
+}
+
 .pd-demographics div:nth-child(1) {
     display: flex;
     gap: 1rem;
@@ -98,7 +102,10 @@
 
 .pd-demographics div:nth-child(1) span:nth-child(1) {
     color: #838383;
+}
 
+.profile-edit-btn {
+    display: grid;
 }
 
 .pd-bio {
@@ -141,6 +148,18 @@
     height: fit-content;
     gap: 0.6rem;
     cursor: pointer;
+}
+
+.edit-pwd:hover {
+    background-color: rgb(146, 47, 11);
+    border: none;
+    font-size: 0.9rem;
+    border-radius: 0.2rem;
+}
+
+.edit-pwd {
+    font-size: 0.9rem;
+    border-radius: 0.2rem;
 }
 
 .profile-user-icons {

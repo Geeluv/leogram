@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
-import "./Profile.css"
-import { BiDiamond, BiEdit, BiLogoFacebook, BiLogoGmail, BiLogoGoogle, BiLogoTwitter, BiLogoZoom } from "react-icons/bi"
-import { NavLink, useParams } from 'react-router-dom'
-import { setImageLink } from '../../utils/imageHandler'
-import { UserContext } from '../../utils/UserContext'
+import React, { useContext, useEffect, useState } from 'react';
+import "./Profile.css";
+import { BiDiamond, BiEdit, BiLogoFacebook, BiLogoGmail, BiLogoGoogle, BiLogoTwitter, BiLogoZoom } from "react-icons/bi";
+import { NavLink, useParams } from 'react-router-dom';
+import { setImageLink } from '../../utils/imageHandler';
+import { UserContext } from '../../utils/UserContext';
+import PasswordModal from '../../components/PasswordModal/PasswordModal';
 
 const Profile = () => {
     const { id } = useParams()
@@ -12,6 +13,7 @@ const Profile = () => {
     const [bannerLink, setBannerLink] = useState("");
     const [followText, setFollowText] = useState("Follow");
     const [profileImageLink, setProfileImageLink] = useState("");
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     async function fetchProfile() {
         const response = await fetch(`http://localhost:3000/leogram/users/profile/${id}`, {
@@ -45,12 +47,14 @@ const Profile = () => {
 
     useEffect(() => {
         fetchProfile();
-    }, [])
+    }, [id])
 
     return (
         <>
             <div className='profile'>
+                {(isModalVisible && user?.user?._id === id) && <PasswordModal setIsModalVisible={setIsModalVisible} />}
                 <div className='main-profile-container'>
+
                     <div className='profile-image-wrapper'>
                         <div className='profile-banner-container' style={bannerStyle}></div>
                         <div className='profile-image-container'>
@@ -73,13 +77,30 @@ const Profile = () => {
                                         </div>
                                         <div className='pd-bio'><i>{userData?.bio}</i></div>
                                     </div>
-                                    {user?.user?._id === id && <NavLink to={"/edit/" + user?.user?._id} className='profile-edit'>
-                                        <BiEdit className='pd-edit-icon' /> Edit profile
-                                    </NavLink>}
-                                    {user?.user?._id !== id && <span onClick={followUser} className='follow-user'>
-                                        {followText}
-                                    </span>}
-                                    <div className='pd-followers'><span><b>{userData?.followers.length}</b> Followers</span> <span><b>{userData?.following.length}</b> Following</span></div>
+                                    <section className='profile-edit-btn'>
+                                        {user?.user?._id === id &&
+                                            <NavLink to={"/edit/" + user?.user?._id} className='profile-edit'>
+                                                <BiEdit className='pd-edit-icon' /> Edit profile
+                                            </NavLink>}
+                                        {user?.user?._id !== id && <span onClick={followUser} className='follow-user'>
+                                            {followText}
+                                        </span>}
+                                        {user?.user?._id === id && <span
+                                            className='profile-edit edit-pwd'
+                                            onClick={() => setIsModalVisible(true)}>Change password
+                                        </span>}
+                                    </section>
+
+                                    <div className='pd-followers'>
+                                        <span>
+                                            <b>{userData?.followers.length}</b>
+                                            Followers
+                                        </span>
+                                        <span>
+                                            <b>{userData?.following.length}</b>
+                                            Following
+                                        </span>
+                                    </div>
                                 </div>
                                 <div className='profile-user-icons'>
                                     <BiLogoFacebook />

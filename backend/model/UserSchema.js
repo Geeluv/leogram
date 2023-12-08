@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const crypto = require("crypto");
 
 const UserSchema = new mongoose.Schema({
     username: {
@@ -43,7 +44,19 @@ const UserSchema = new mongoose.Schema({
     bio: {
         type: String,
         default: "Leogram is a place to be"
-    }
+    },
+    pwdResetToken: String,
+    pwdResetTokenExp: Date,
+
 }, { timestamps: true });
+
+UserSchema.methods.passwordResetToken = function () {
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    this.pwdResetToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+    this.passwordResetTokenExp = Date.now() + 10 * 60 * 1000;
+    // console.log(resetToken, this.pwdResetToken);
+
+    return resetToken;
+}
 
 module.exports = mongoose.model("User", UserSchema);

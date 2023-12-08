@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { UserContext } from '../../utils/UserContext'
 import "./Notification.css"
+import { AiOutlineCloseCircle } from "react-icons/ai"
 
 const Notification = () => {
     const { currentNotification, setNotifClass, notifClass } = useContext(UserContext);
@@ -11,8 +12,12 @@ const Notification = () => {
     return (
         <>
             <div className={notifClass}>
-                {currentNotification}
-                <div onClick={hideNotification} className='close-notif'>x</div>
+                <section className='notif-wrapper'>
+                    {currentNotification}
+                    <div onClick={hideNotification}>
+                        <AiOutlineCloseCircle className='close-notif' />
+                    </div>
+                </section>
             </div>
         </>
     )

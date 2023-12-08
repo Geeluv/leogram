@@ -40,7 +40,7 @@ exports.loginUser = asyncErrorHandler(async (req, res, next) => {
         });
     } else {
         const err = new CustomError("Invalid credentials", 400);
-        return next(err)
+        return next(err);
     }
 })
 

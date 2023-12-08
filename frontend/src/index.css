@@ -22,6 +22,16 @@ body {
   box-sizing: border-box;
 }
 
+::selection {
+  background-color: rgb(146, 47, 11) !important;
+  color: #242424;
+}
+
+:-moz-selection {
+  color: #242424;
+  background-color: rgb(146, 47, 11) !important;
+}
+
 a {
   text-decoration: none;
   color: rgba(255, 255, 255, 0.87);

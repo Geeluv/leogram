@@ -6,6 +6,8 @@ exports.editProfile = asyncErrorHandler(async (req, res, next) => {
     const { username, bio } = req.body;
     let imagePath;
     let bannerPath;
+    let oldImagePath;
+    let oldBannerPath;
     let profilePhoto;
     let bannerImage;
 
@@ -17,7 +19,8 @@ exports.editProfile = asyncErrorHandler(async (req, res, next) => {
             const splitName = originalname.split(".");
             const ext = splitName[splitName.length - 1]
             imagePath = path + `.${ext}`;
-            fs.renameSync(path, imagePath);
+            oldImagePath = path;
+
         }
         if (imageFiles.profile_banner) {
             bannerImage = imageFiles.profile_banner;
@@ -25,7 +28,8 @@ exports.editProfile = asyncErrorHandler(async (req, res, next) => {
             const splitName = originalname.split(".");
             const ext = splitName[splitName.length - 1]
             bannerPath = path + `.${ext}`;
-            fs.renameSync(path, bannerPath);
+            oldBannerPath = path;
+
         }
     }
     const docs1 = await User.findOne({ _id: req.decoded._id });
@@ -35,6 +39,11 @@ exports.editProfile = asyncErrorHandler(async (req, res, next) => {
         image: imagePath && imagePath,
         banner_image: bannerPath && bannerPath
     }, { new: true, runValidators: true });
+    if (docs) {
+        console.log(docs)
+        // fs.renameSync(oldImagePath, imagePath);
+        // fs.renameSync(oldBannerPath, bannerPath);
+    }
 
     res.status(200).json({ message: "Profile updated!", docs: docs })
 })

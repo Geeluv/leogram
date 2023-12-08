@@ -1,4 +1,3 @@
-import TestImage from "../../assets/images/leogram-test-image.jpg";
 import { FaComment, FaShare, FaThumbsUp, } from 'react-icons/fa';
 import { BiTrash } from 'react-icons/bi';
 import React, { useContext, useEffect, useRef } from 'react'

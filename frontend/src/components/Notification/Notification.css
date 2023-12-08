@@ -5,42 +5,36 @@
 }
 
 .notification {
-    color: #fff;
-    background-color: rgb(168, 61, 22);
     position: absolute;
     top: 15%;
     left: 50%;
     z-index: 101;
-    padding: 0.6rem 1.2rem;
-    padding-right: 0.35rem;
+}
+
+.notif-wrapper {
     display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0.8rem;
+    align-items: center !important;
+    background-color: rgb(139, 50, 18);
     gap: 1rem;
-    align-items: center;
-    font-size: 0.9rem;
-    justify-content: center;
-    font-weight: 300;
-    letter-spacing: 1px;
     border-radius: 0.2rem;
-    position: fixed;
-    border: 0.5px solid rgb(68, 68, 68);
-    max-width: 50ch;
+    font-size: 0.85rem;
+    max-width: 600px;
+    word-break: break-word;
 }
 
 .close-notif {
-    border: 0;
-    background-color: #fff;
-    padding: 0 0.3rem;
-    height: fit-content;
-    color: rgb(168, 61, 22);
     font-weight: bolder;
-    font-size: 1rem;
+    font-size: 1.5rem;
     cursor: pointer;
+    color: #fff;
     transition: 0.2s;
+    margin-top: 0.2rem;
 }
 
 .close-notif:hover {
-    background-color: rgb(133, 44, 11);
-    color: #fff;
+    color: rgb(247, 139, 100);
     transition: 0.2s ease-in;
 }
 
