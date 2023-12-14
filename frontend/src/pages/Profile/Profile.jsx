@@ -4,7 +4,6 @@ import { BiDiamond, BiEdit, BiLogoFacebook, BiLogoGmail, BiLogoGoogle, BiLogoTwi
 import { NavLink, useParams } from 'react-router-dom';
 import { setImageLink } from '../../utils/imageHandler';
 import { UserContext } from '../../utils/UserContext';
-import PasswordModal from '../../components/PasswordModal/PasswordModal';
 
 const Profile = () => {
     const { id } = useParams()
@@ -13,7 +12,6 @@ const Profile = () => {
     const [bannerLink, setBannerLink] = useState("");
     const [followText, setFollowText] = useState("Follow");
     const [profileImageLink, setProfileImageLink] = useState("");
-    const [isModalVisible, setIsModalVisible] = useState(false);
 
     async function fetchProfile() {
         const response = await fetch(`http://localhost:3000/leogram/users/profile/${id}`, {
@@ -52,7 +50,7 @@ const Profile = () => {
     return (
         <>
             <div className='profile'>
-                {(isModalVisible && user?.user?._id === id) && <PasswordModal setIsModalVisible={setIsModalVisible} />}
+
                 <div className='main-profile-container'>
 
                     <div className='profile-image-wrapper'>
@@ -85,10 +83,9 @@ const Profile = () => {
                                         {user?.user?._id !== id && <span onClick={followUser} className='follow-user'>
                                             {followText}
                                         </span>}
-                                        {user?.user?._id === id && <span
-                                            className='profile-edit edit-pwd'
-                                            onClick={() => setIsModalVisible(true)}>Change password
-                                        </span>}
+                                        {user?.user?._id === id && <NavLink to="/reset-password"
+                                            className='profile-edit edit-pwd'>Change password
+                                        </NavLink>}
                                     </section>
 
                                     <div className='pd-followers'>

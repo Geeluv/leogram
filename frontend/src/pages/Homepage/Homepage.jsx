@@ -9,7 +9,7 @@ import { UserContext } from '../../utils/UserContext'
 
 const Homepage = () => {
     const navigate = useNavigate();
-    const user = useContext(UserContext)
+    const user = useContext(UserContext);
     const [toggleText, setToggleText] = useState("Already have an account? Sign In!");
     const [toggleForm, setToggleForm] = useState("register");
 
@@ -19,8 +19,8 @@ const Homepage = () => {
             setToggleText("Already have an account? Sign In!");
         }
         else {
-            setToggleForm("login")
-            setToggleText("Don't have an account? Sign Up!")
+            setToggleForm("login");
+            setToggleText("Don't have an account? Sign Up!");
         }
     }
 
